@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include "LeonardoSantos20241160046.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+#include <string.h>
 
 DataQuebrada quebraData(char data[]);
 
@@ -92,17 +93,58 @@ int teste(int a)
  */
 int q1(char data[])
 {
-  int datavalida = 1;
+
+  char sDia[3], sMes[3], sAno[5];
+  int i = 0;
 
   //quebrar a string data em strings sDia, sMes, sAno
-  printf("cu");
+  for(; data[i] != '/'; i++)
+    sDia[i] = data[i];
 
-  //printf("%s\n", data);
-
-  if (datavalida)
-      return 1;
+  if(i==1 || i==2)
+    sDia[i] = '\0';
   else
-      return 0;
+    return 0;
+
+  int j = i + 1; i = 0;
+
+  for(; data[j] != '/'; j++, i++)
+    sMes[i] = data[j];
+
+  if(i==1 || i==2)
+    sMes[i] = '\0';
+  else
+    return 0;
+
+  j++; i = 0;
+
+  for(; data[j] != '\0'; j++, i++)
+    sAno[i] = data[j];
+
+  if(i==2 || i==4)
+    sAno[i] = '\0';
+  else
+    return 0;
+
+  // transformando a string quebrada em inteiro
+  int dia, mes, ano;
+
+  dia = strlen(sDia) == 2 ? ((sDia[0] - 48) * 10) + (sDia[1] - 48) : (sDia[0] - 48);
+  
+  mes = strlen(sMes) == 2 ? ((sMes[0] - 48) * 10) + (sMes[1] - 48) : (sMes[0] - 48); 
+  if(mes>12 || mes<1) return 0;
+  
+  ano = strlen(sAno) == 2 ? 2000 + (((sAno[0] - 48) * 10) + (sAno[1] - 48)) : ((sAno[0] - 48) * 1000) + ((sAno[1] - 48) * 100) + ((sAno[2] - 48) * 10) + (sAno[3] - 48);
+  if(ano>2024 || ano<1) return 0;
+
+  int diasNoMes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  if(ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0))
+    diasNoMes[1] = 29;
+
+  if(dia>diasNoMes[mes-1] || dia<1)
+    return 0;
+
+  return 1;
 }
 
 
