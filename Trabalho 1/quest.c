@@ -163,8 +163,9 @@ int q1(char data[])
     4 -> datainicial > datafinal
     Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
  */
+
 DiasMesesAnos q2(char datainicial[], char datafinal[])
-{
+{   
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
@@ -176,10 +177,87 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       dma.retorno = 3;
       return dma;
     }else{
-      //verifique se a data final não é menor que a data inicial
-      
       //calcule a distancia entre as datas
+      //quebrando as strings e transformanado em interios - DATA INICIAL
+      char sDia[3], sMes[3], sAno[5];
+      int dia[2], mes[2], ano[2];
+      int i = 0;
 
+      for(; datainicial[i] != '/'; i++)
+        sDia[i] = datainicial[i];
+
+      sDia[i] = '\0';
+      int j = i + 1; i = 0;
+
+      for(; datainicial[j] != '/'; j++, i++)
+        sMes[i] = datainicial[j];
+
+      sMes[i] = '\0';
+      j++; i = 0;
+
+      for(; datainicial[j] != '\0'; j++, i++)
+        sAno[i] = datainicial[j];
+
+        sAno[i] = '\0'; i = 0;
+
+      dia[0] = strlen(sDia) == 2 ? ((sDia[0] - 48) * 10) + (sDia[1] - 48) : (sDia[0] - 48);
+      mes[0] = strlen(sMes) == 2 ? ((sMes[0] - 48) * 10) + (sMes[1] - 48) : (sMes[0] - 48); 
+      ano[0] = strlen(sAno) == 2 ? 2000 + (((sAno[0] - 48) * 10) + (sAno[1] - 48)) : ((sAno[0] - 48) * 1000) + ((sAno[1] - 48) * 100) + ((sAno[2] - 48) * 10) + (sAno[3] - 48);
+
+      int diasNoMes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+      if(ano[0] % 4 == 0 && (ano[0] % 100 != 0 || ano[0] % 400 == 0)){
+          diasNoMes[1] = 29;
+      }
+
+
+      for(; datafinal[i] != '/'; i++)
+        sDia[i] = datafinal[i];
+
+      sDia[i] = '\0';
+      j = i + 1; i = 0;
+
+      for(; datafinal[j] != '/'; j++, i++)
+        sMes[i] = datafinal[j];
+
+      sMes[i] = '\0';
+      j++; i = 0;
+
+      for(; datafinal[j] != '\0'; j++, i++)
+        sAno[i] = datafinal[j];
+
+        sAno[i] = '\0';
+
+      dia[1] = strlen(sDia) == 2 ? ((sDia[0] - 48) * 10) + (sDia[1] - 48) : (sDia[0] - 48);
+      mes[1] = strlen(sMes) == 2 ? ((sMes[0] - 48) * 10) + (sMes[1] - 48) : (sMes[0] - 48); 
+      ano[1] = strlen(sAno) == 2 ? 2000 + (((sAno[0] - 48) * 10) + (sAno[1] - 48)) : ((sAno[0] - 48) * 1000) + ((sAno[1] - 48) * 100) + ((sAno[2] - 48) * 10) + (sAno[3] - 48);
+
+      // verificando se a data inicial é maior do que a final
+      if(ano[0] > ano[1] || ((ano[0] == ano[1]) && mes[0] > mes[1]) || (((ano[0] == ano[1]) && mes[0] == mes[1]) && dia[0] > dia[1])){
+        dma.retorno = 4;
+        return dma;
+      }
+
+      dma.qtdAnos = dma.qtdDias = dma.qtdMeses = 0;
+      int auxMes = mes[0];
+      
+      for(; ano[0] < ano[1]; ano[0]++){
+        dma.qtdAnos++;
+      }
+      if(mes[0] > mes[1]){
+        dma.qtdAnos--;
+        dma.qtdMeses = 12 + (mes[1] - mes[0]);
+      }else if(mes[0] < mes[1]){
+        for(; mes[0] < mes[1]; mes[0]++)
+          dma.qtdMeses++;
+      }
+      if(dia[0] > dia[1]){
+        dma.qtdMeses--;
+        dma.qtdDias = diasNoMes[auxMes-1] == 29 ? (diasNoMes[auxMes-1] - 1) + (dia[1] - dia[0]) : diasNoMes[auxMes-1] + (dia[1] - dia[0]);
+        if(ano[1] % 4 == 0 && (ano[1] % 100 != 0 || ano[1] % 400 == 0))
+          dma.qtdDias++;
+      }else if(dia[0] < dia[1])
+        for(; dia[0] < dia[1]; dia[0]++)
+          dma.qtdDias++;
 
       //se tudo der certo
       dma.retorno = 1;
