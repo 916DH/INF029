@@ -374,6 +374,14 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+  int aux = 0;
+
+  while(num>0){
+    int digito = num % 10;
+    aux = (aux * 10) + digito;
+    num /= 10;
+  }
+  num = aux;
 
     return num;
 }
@@ -390,7 +398,7 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+    int qtdOcorrencias = 0;
     return qtdOcorrencias;
 }
 
