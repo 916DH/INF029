@@ -33,12 +33,18 @@ int main()
 {
     // testSomar();
     //testFatorial();
-    // testQ1();
+    printf("q1\n");
+    testQ1();
+    printf("q2\n");
     testQ2();
-    // testQ3();
-    // testQ4();
-    // testQ5();
-    // testQ6();
+    printf("q3\n");
+    testQ3();
+    printf("q4\n");
+    testQ4();
+    printf("q5\n");
+    testQ5();
+    printf("q6\n");
+    testQ6();
 }
 
 void testSomar()
@@ -161,7 +167,7 @@ void testQ4()
     {
         posicoes[i] = -1;
     }
-    strcpy(strTexto, "Olá, o mundo é muito grande. Tem muitas pessoas, e muitos problemas");
+    strcpy(strTexto, "Ola, o mundo e muito grande. Tem muitas pessoas, e muitos problemas");
     strcpy(strBusca, "mui");
     printf("%d\n", q4(strTexto, strBusca, posicoes) == 3);
     printf("%d\n", posicoes[0] == 16);
