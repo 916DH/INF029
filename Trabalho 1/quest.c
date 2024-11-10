@@ -279,7 +279,45 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+    char com_acento[] = "áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛãõÃÕçÇ";
+    char sem_acento[] = "aeiouaeiouaeiouaeiouaeiouaeiouaoaocc";
+    char auxTexto[250];
+    
+    if(isCaseSensitive == 1){
+      for(int i=0; i < strlen(texto); i++){
+        if(c==texto[i])
+          qtdOcorrencias++;
+      }
+    }else{
+      for(int i=0; i < strlen(texto); i++)
+        auxTexto[i] = texto[i];
+      auxTexto[strlen(texto)] = '\0';
+      for(int i=0; i < strlen(auxTexto); i++){
+        if(auxTexto[i]>='A' && auxTexto[i]<='Z'){
+          auxTexto[i] += 32;
+        }else{
+          for(int j=0; j < strlen(com_acento); j++){
+            if(auxTexto[i]==com_acento[j])
+              auxTexto[i] = sem_acento[j];
+          }
+        }
+      }
+      if(c>='A' && c<='Z'){
+          c += 32;
+      }else{
+        for(int j=0; j < strlen(com_acento); j++){
+          if(c==com_acento[j]){
+            c = sem_acento[j];
+            break;
+          }
+        }
+      }
+      for(int i=0; i < strlen(auxTexto); i++){
+        if(c==auxTexto[i])
+          qtdOcorrencias++;
+      }
+    }
 
     return qtdOcorrencias;
 }
