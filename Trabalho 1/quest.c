@@ -339,7 +339,25 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+    int size = strlen(strBusca);
+
+    for(int i=0, n=0; i < strlen(strTexto); i++){
+      if(strTexto[i] == strBusca[0]){
+        char teste[size+1];
+        teste[size] = '\0';
+
+        for(int j=0, k=i; j < size; j++)
+          teste[j] = strTexto[k++];
+        
+        if(strcmp(teste, strBusca) == 0){
+          posicoes[n++] = i+1;
+          posicoes[n++] = i + size;
+          qtdOcorrencias++;
+          i += (size-1);
+        }
+      }
+    }
 
     return qtdOcorrencias;
 }
