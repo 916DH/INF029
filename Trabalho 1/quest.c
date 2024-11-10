@@ -399,6 +399,41 @@ int q5(int num)
 int q6(int numerobase, int numerobusca)
 {
     int qtdOcorrencias = 0;
+    int countBusca = 0;
+    int countBase = 0;
+    int aux = numerobusca;
+
+    while(aux>0){
+      countBusca++;
+      aux /= 10;
+    }
+    aux = numerobase;
+    while(aux>0){
+      countBase++;
+      aux /= 10;
+    }
+
+    char *base = (char *)malloc((countBase + 1) * sizeof(char));
+    char *busca = (char *)malloc((countBusca + 1) * sizeof(char));
+
+    sprintf(base, "%d", numerobase);
+    sprintf(busca, "%d", numerobusca);
+
+    for(int i=0; i < countBase; i++){
+      if(base[i]==busca[0]){
+        char teste[countBusca+1];
+        teste[countBusca] = '\0';
+
+        for(int j=0, k=i; j < countBusca; j++)
+          teste[j] = base[k++];
+        
+        if(strcmp(teste, busca) == 0){
+          qtdOcorrencias++;
+          i += (countBusca-1);
+        }
+      }
+    }
+
     return qtdOcorrencias;
 }
 
