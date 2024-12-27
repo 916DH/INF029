@@ -107,6 +107,16 @@ Rertono (int)
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
     int retorno = SUCESSO;
+    
+    if(posicao < 0 || posicao > 9)
+        retorno = POSICAO_INVALIDA;
+    else if(vetorPrincipal[posicao] == NULL)
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+    else if(contador[posicao] == 0)
+        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+    else
+        contador[posicao]--;
+    
     return retorno;
 }
 
@@ -126,7 +136,31 @@ Rertono (int)
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
     int retorno = SUCESSO;
-    return retorno;
+    
+    if(posicao < 0 || posicao > 9)
+        return retorno = POSICAO_INVALIDA;
+    else if(vetorPrincipal[posicao] == NULL)
+        return retorno = SEM_ESTRUTURA_AUXILIAR;
+    else if(contador[posicao] == 0)
+        return retorno = ESTRUTURA_AUXILIAR_VAZIA;
+        
+    int achou = 0;
+    for(int i=0; i<tamanhos[posicao]; i++){
+        if(vetorPrincipal[posicao][i] == valor){
+            if(i+1 == tamanhos[posicao])
+                contador[posicao]--;
+            else{
+                for(int j=i; j < tamanhos[posicao]; j++){
+                    vetorPrincipal[posicao][j] = vetorPrincipal[posicao][j+1];
+                }
+                contador[posicao]--;
+            }
+            return retorno;
+        }
+    }
+    
+    if(!achou)
+        return retorno = NUMERO_INEXISTENTE;
 }
 
 // se posição é um valor válido {entre 1 e 10}
