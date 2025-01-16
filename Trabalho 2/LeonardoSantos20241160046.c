@@ -21,6 +21,7 @@ Rertono (int)
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
+    posicao--;
 	if(posicao < 0 || posicao > 9)
     	return POSICAO_INVALIDA;
 
@@ -56,6 +57,7 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else{
@@ -89,7 +91,7 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else if(vetorPrincipal[posicao] == NULL)
@@ -117,6 +119,7 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else if(vetorPrincipal[posicao] == NULL)
@@ -146,6 +149,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 // se posição é um valor válido {entre 1 e 10}
 int ehPosicaoValida(int posicao)
 {
+    posicao--;
     if (posicao < 1 || posicao > 10)
     {
         return POSICAO_INVALIDA;
@@ -164,6 +168,7 @@ Retorno (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else if(vetorPrincipal[posicao] == NULL)
@@ -186,6 +191,7 @@ Rertono (int)
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else if(vetorPrincipal[posicao] == NULL)
@@ -293,6 +299,7 @@ Rertono (int)
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else if((tamanhos[posicao] + novoTamanho) < 1)
@@ -328,6 +335,7 @@ Retorno (int)
 */
 int getQuantidadeElementosEstruturaAuxiliar(int posicao)
 {
+    posicao--;
     if(posicao < 0 || posicao > 9)
         return POSICAO_INVALIDA;
     else if(vetorPrincipal[posicao] == NULL)
